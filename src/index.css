@@ -111,7 +111,7 @@ form {
 
 .videos {
   display: flex;
-  gap: 30px;
+  gap: 20px;
   justify-content: center;
   align-items: center;
 }
@@ -164,11 +164,31 @@ form {
   width: 126px;
   height: 70px;
   border-radius: 5px;
-  border: 1px solid #00abf0;
-  box-shadow: 0px 0px 2px #00abf0;
+  border: 2px solid #00abf0;
+  box-shadow: 0px 0px 4px #00abf0;
   background-position: center;
   object-fit: cover;
 }
+
+.recent img {
+  transition: all 0.15s;
+}
+
+.recent img:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 15px black;
+}
+
+.popular img {
+  transition: all 0.15s;
+}
+
+.popular img:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 15px black;
+}
+
+
 
 .popular {
   display: flex;
