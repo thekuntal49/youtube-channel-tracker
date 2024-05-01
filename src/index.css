@@ -164,8 +164,8 @@ form {
   width: 126px;
   height: 70px;
   border-radius: 5px;
-  border: 1px solid orange;
-  box-shadow: 0px 0px 2px orange;
+  border: 1px solid #00abf0;
+  box-shadow: 0px 0px 2px #00abf0;
   background-position: center;
   object-fit: cover;
 }
