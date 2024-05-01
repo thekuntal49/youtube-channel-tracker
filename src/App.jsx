@@ -70,12 +70,16 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!channelID || !/^[a-zA-Z0-9_-]{24}$/.test(channelID)) {
+      alert("Please enter a valid YouTube channel ID.");
+      return;
+    }
+
     try {
       const apiKey = "AIzaSyD4h6FPWFjck7aKtDA4rJvVzHYmp1j7yFw";
       const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelID}&key=${apiKey}`;
 
       const channelResponse = await (await fetch(url)).json();
-      console.log(channelResponse);
 
       const viewCount = parseInt(channelResponse.items[0].statistics.viewCount);
 
@@ -83,25 +87,27 @@ function App() {
 
       const recentVideoUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelID}&type=video&order=date&maxResults=1&key=${apiKey}`;
       const recentVideoResponse = await (await fetch(recentVideoUrl)).json();
-      console.log(recentVideoResponse);
 
       const popularVideoUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelID}&type=video&order=viewCount&maxResults=1&key=${apiKey}`;
       const popularVideoResponse = await (await fetch(popularVideoUrl)).json();
-      console.log(popularVideoResponse);
 
       let recentVideoThumbnail, popularVideoThumbnail;
 
-if (recentVideoResponse.items.length > 0) {
-  recentVideoThumbnail = recentVideoResponse.items[0].snippet.thumbnails.high.url;
-} else {
-  recentVideoThumbnail = "https://dl-asset.cyberlink.com/web/prog/learning-center/html/4090/PDR19-YouTube-21_How_to_Name_Your_YouTube_Videos/img/No-Thumbnail.png";
-}
+      if (recentVideoResponse.items.length > 0) {
+        recentVideoThumbnail =
+          recentVideoResponse.items[0].snippet.thumbnails.high.url;
+      } else {
+        recentVideoThumbnail =
+          "https://dl-asset.cyberlink.com/web/prog/learning-center/html/4090/PDR19-YouTube-21_How_to_Name_Your_YouTube_Videos/img/No-Thumbnail.png";
+      }
 
-if (popularVideoResponse.items.length > 0) {
-  popularVideoThumbnail = popularVideoResponse.items[0].snippet.thumbnails.high.url;
-} else {
-  popularVideoThumbnail = "https://dl-asset.cyberlink.com/web/prog/learning-center/html/4090/PDR19-YouTube-21_How_to_Name_Your_YouTube_Videos/img/No-Thumbnail.png";
-}
+      if (popularVideoResponse.items.length > 0) {
+        popularVideoThumbnail =
+          popularVideoResponse.items[0].snippet.thumbnails.high.url;
+      } else {
+        popularVideoThumbnail =
+          "https://dl-asset.cyberlink.com/web/prog/learning-center/html/4090/PDR19-YouTube-21_How_to_Name_Your_YouTube_Videos/img/No-Thumbnail.png";
+      }
 
       setChannelData({
         title: channelResponse.items[0].snippet.title,
@@ -114,11 +120,17 @@ if (popularVideoResponse.items.length > 0) {
         createdDate: new Date(channelResponse.items[0].snippet.publishedAt),
         recentVideo: {
           thumbnail: recentVideoThumbnail,
-          videoId: recentVideoResponse.items.length > 0 ? recentVideoResponse.items[0].id.videoId : "",
+          videoId:
+            recentVideoResponse.items.length > 0
+              ? recentVideoResponse.items[0].id.videoId
+              : "",
         },
         popularVideo: {
           thumbnail: popularVideoThumbnail,
-          videoId: popularVideoResponse.items.length > 0 ? popularVideoResponse.items[0].id.videoId : "",
+          videoId:
+            popularVideoResponse.items.length > 0
+              ? popularVideoResponse.items[0].id.videoId
+              : "",
         },
         income: incomeRange,
       });
