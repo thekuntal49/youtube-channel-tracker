@@ -3,6 +3,7 @@ import { FaPlay, FaRupeeSign } from "react-icons/fa";
 import { RiUserFollowFill } from "react-icons/ri";
 import { BsFillInfoCircleFill } from "react-icons/bs";
 
+// Function to format subscriber count (e.g., 1000 -> 1K, 1000000 -> 1M)
 function formatSubscriberCount(count) {
   if (count >= 1000000) {
     return (count / 1000000).toFixed(1) + "M";
@@ -12,11 +13,14 @@ function formatSubscriberCount(count) {
     return count.toString();
   }
 }
+
+// Function to format view count with commas (e.g., 1000 -> 1,000)
 function formatViewCount(count) {
   return count.toLocaleString();
 }
 
 function App() {
+  // State variables
   const [channelID, setChannelID] = useState("");
   const [channelData, setChannelData] = useState({
     title: "KUNTAL",
@@ -33,17 +37,15 @@ function App() {
       videoId: "02Zjz1TY1yc",
     },
   });
-  const [incomeRange, setIncomeRange] = useState(`30K - 80K`);
+  const [incomeRange, setIncomeRange] = useState(`4900 - 5600`);
+
+  // Function to update income range based on view count
   const updateIncomeRange = (views) => {
-    let lowerBound, upperBound;
-    const incomePer10KViews = {
-      lower: 75,
-      upper: 84,
-    };
+    // Calculate income range
+    let lowerBound = Math.round(views / 10000) * 75;
+    let upperBound = Math.round(views / 10000) * 84;
 
-    lowerBound = Math.round(views / 10000) * incomePer10KViews.lower;
-    upperBound = Math.round(views / 10000) * incomePer10KViews.upper;
-
+    // Format upper bound for readability
     if (upperBound >= 10000000) {
       upperBound = Math.ceil(upperBound / 10000000) + "Cr";
     } else if (upperBound >= 100000) {
@@ -52,6 +54,7 @@ function App() {
       upperBound = Math.ceil(upperBound / 1000) + "K";
     }
 
+    // Format lower bound for readability
     if (lowerBound >= 10000000) {
       lowerBound = Math.floor(lowerBound / 10000000) + "Cr";
     } else if (lowerBound >= 100000) {
@@ -60,77 +63,60 @@ function App() {
       lowerBound = Math.floor(lowerBound / 1000) + "K";
     }
 
+    // Set income range
     setIncomeRange(`${lowerBound} - ${upperBound}`);
   };
 
+  // Handle input change
   const handleChange = (e) => {
     setChannelID(e.target.value);
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validate channel ID format
     if (!channelID || !/^[a-zA-Z0-9_-]{24}$/.test(channelID)) {
       alert("Please enter a valid YouTube channel ID.");
       return;
     }
 
     try {
-      const apiKey = "AIzaSyD4h6FPWFjck7aKtDA4rJvVzHYmp1j7yFw";
+      // Fetch channel data using YouTube Data API
+      const apiKey = "AIzaSyBJMU1kXx6f4cTjbEE1Jbcqu879wiA_ICc";
       const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelID}&key=${apiKey}`;
+      const channelResponse = await fetch(url);
+      const channelData = await channelResponse.json();
 
-      const channelResponse = await (await fetch(url)).json();
-
-      const viewCount = parseInt(channelResponse.items[0].statistics.viewCount);
-
+      // Update income range based on view count
+      const viewCount = parseInt(channelData.items[0].statistics.viewCount);
       updateIncomeRange(viewCount);
 
+      // Fetch recent video data
       const recentVideoUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelID}&type=video&order=date&maxResults=1&key=${apiKey}`;
-      const recentVideoResponse = await (await fetch(recentVideoUrl)).json();
+      const recentVideoResponse = await fetch(recentVideoUrl);
+      const recentVideoData = await recentVideoResponse.json();
 
+      // Fetch popular video data
       const popularVideoUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelID}&type=video&order=viewCount&maxResults=1&key=${apiKey}`;
-      const popularVideoResponse = await (await fetch(popularVideoUrl)).json();
+      const popularVideoResponse = await fetch(popularVideoUrl);
+      const popularVideoData = await popularVideoResponse.json();
 
-      let recentVideoThumbnail, popularVideoThumbnail;
-
-      if (recentVideoResponse.items.length > 0) {
-        recentVideoThumbnail =
-          recentVideoResponse.items[0].snippet.thumbnails.high.url;
-      } else {
-        recentVideoThumbnail =
-          "https://dl-asset.cyberlink.com/web/prog/learning-center/html/4090/PDR19-YouTube-21_How_to_Name_Your_YouTube_Videos/img/No-Thumbnail.png";
-      }
-
-      if (popularVideoResponse.items.length > 0) {
-        popularVideoThumbnail =
-          popularVideoResponse.items[0].snippet.thumbnails.high.url;
-      } else {
-        popularVideoThumbnail =
-          "https://dl-asset.cyberlink.com/web/prog/learning-center/html/4090/PDR19-YouTube-21_How_to_Name_Your_YouTube_Videos/img/No-Thumbnail.png";
-      }
-
+      // Set channel data
       setChannelData({
-        title: channelResponse.items[0].snippet.title,
-        logo: channelResponse.items[0].snippet.thumbnails.high.url,
-
-        subscriberCount: formatSubscriberCount(
-          parseInt(channelResponse.items[0].statistics.subscriberCount)
-        ),
+        title: channelData.items[0].snippet.title,
+        logo: channelData.items[0].snippet.thumbnails.high.url,
+        subscriberCount: formatSubscriberCount(parseInt(channelData.items[0].statistics.subscriberCount)),
         viewCount: formatViewCount(viewCount),
-        createdDate: new Date(channelResponse.items[0].snippet.publishedAt),
+        createdDate: new Date(channelData.items[0].snippet.publishedAt),
         recentVideo: {
-          thumbnail: recentVideoThumbnail,
-          videoId:
-            recentVideoResponse.items.length > 0
-              ? recentVideoResponse.items[0].id.videoId
-              : "",
+          thumbnail: recentVideoData.items.length > 0 ? recentVideoData.items[0].snippet.thumbnails.high.url : "",
+          videoId: recentVideoData.items.length > 0 ? recentVideoData.items[0].id.videoId : "",
         },
         popularVideo: {
-          thumbnail: popularVideoThumbnail,
-          videoId:
-            popularVideoResponse.items.length > 0
-              ? popularVideoResponse.items[0].id.videoId
-              : "",
+          thumbnail: popularVideoData.items.length > 0 ? popularVideoData.items[0].snippet.thumbnails.high.url : "",
+          videoId: popularVideoData.items.length > 0 ? popularVideoData.items[0].id.videoId : "",
         },
         income: incomeRange,
       });
@@ -139,6 +125,7 @@ function App() {
     }
   };
 
+  // Render UI
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
@@ -148,7 +135,7 @@ function App() {
           id="input"
           value={channelID}
           onChange={handleChange}
-          placeholder="Enter channel ID.."
+          placeholder="Enter YouTube channel ID.."
         />
         <button type="submit" id="btn">
           Search
@@ -183,6 +170,7 @@ function App() {
             <a
               href={`https://www.youtube.com/watch?v=${channelData.recentVideo.videoId}`}
               target="_blank"
+              rel="noopener noreferrer"
             >
               <img src={channelData.recentVideo.thumbnail} alt="Recent Video" />
             </a>
@@ -192,11 +180,9 @@ function App() {
             <a
               href={`https://www.youtube.com/watch?v=${channelData.popularVideo.videoId}`}
               target="_blank"
+              rel="noopener noreferrer"
             >
-              <img
-                src={channelData.popularVideo.thumbnail}
-                alt="Popular Video"
-              />
+              <img src={channelData.popularVideo.thumbnail} alt="Popular Video" />
             </a>
           </div>
         </div>
