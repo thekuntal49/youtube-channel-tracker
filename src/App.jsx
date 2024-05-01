@@ -188,7 +188,7 @@ function App() {
         </div>
       </div>
       <div className="income">
-        <p>Estimated Income(if Monetized) :</p>
+        <p>Estimated Income(If monetized) :</p>
         <p id="rs">
           <FaRupeeSign />
           <span>{incomeRange}</span>
