@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import axios from "axios";
 
 export const Visitor = () => {
-  const backendUrl = "https://social-clubs-backend.onrender.com";
+  const backendUrl = "https://api.socialclubs.fun";
   const projectName = "YouTube Channel Tracker";
   const PROJECT_NAME = projectName.toLowerCase().split(" ").join("");
 
@@ -32,7 +32,7 @@ export const Visitor = () => {
         const longitude = position.coords.longitude;
 
         try {
-          await axios.get(`${backendUrl}/api/v1/ip/track`, {
+          await axios.get(`${backendUrl}/api/v1/visit/track`, {
             params: {
               latitude,
               longitude,
@@ -53,7 +53,7 @@ export const Visitor = () => {
           );
           const ip = PROJECT_NAME + "-" + response.data.ip;
 
-          await axios.get(`${backendUrl}/api/v1/ip/track`, {
+          await axios.get(`${backendUrl}/api/v1/visit/track`, {
             params: { ip, deviceId, projectName },
           });
         } catch (error) {
