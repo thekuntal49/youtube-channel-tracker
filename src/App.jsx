@@ -69,7 +69,7 @@ async function getClientIp() {
   }
 }
 
-const MAX_HITS_PER_DAY = 1;
+const MAX_HITS_PER_DAY = 2;
 
 const hasExceededLimit = async () => {
   const visitorId = getVisitorId();
