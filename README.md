@@ -1,6 +1,8 @@
 # YouTube Channel Tracker
 
-A modern web app that lets you analyze any public YouTube channel by handle (e.g., `@veritasium`) and view real-time public statistics, video insights, and estimated earnings.
+A modern web app that lets you analyze any public YouTube channel by handle (e.g., `codesena_dev`) and view real-time public statistics, video insights, and estimated earnings.
+
+🔗 Live Demo: [YouTube Channel Tracker](https://youtube-channel-tracker.vercel.app/)
 
 ## 🚀 Features
 
