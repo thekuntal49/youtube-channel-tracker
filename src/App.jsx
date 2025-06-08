@@ -14,6 +14,7 @@ import {
   Star,
 } from "lucide-react";
 import LimitModal from "./LimitModal";
+import { Visitor } from "./Visitor";
 
 // Function to format subscriber count (e.g., 1000 -> 1K, 1000000 -> 1M)
 function formatSubscriberCount(count) {
@@ -313,6 +314,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <Visitor />
       {/* Header */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20"></div>
