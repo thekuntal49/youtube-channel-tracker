@@ -1,19 +1,26 @@
-YouTube Channel Tracker is a simple yet powerful tool that lets users fetch and view public statistics of any YouTube channel using just the Channel ID.
+# 🎥 YouTube Channel Tracker
 
-✨ Features:
-📛 Channel logo, name & join date
+**YouTube Channel Tracker** is a sleek web app that displays public statistics of any YouTube channel using just the **Channel ID**.
 
-📊 Subscriber and total view count
+## ✨ Features
 
-📹 Recent & most popular videos
+- 📛 Displays channel name, logo & join date  
+- 📊 Shows subscriber count and total views  
+- 📹 Fetches recent & most popular videos  
+- 💰 Estimates income (if monetized)
 
-💰 Estimated monthly income (if monetized)
+## 🚀 Demo
 
-🔧 Built With:
-React.js
+Live Preview: [https://you-tube-tracker-using-react.vercel.app/](https://you-tube-tracker-using-react.vercel.app/)
 
-YouTube Data API v3
+## 🛠️ Tech Stack
 
-Tailwind CSS
+- **React.js**  
+- **Tailwind CSS**  
+- **YouTube Data API v3**
 
-Just enter a Channel ID and instantly get a clean overview of the channel's performance.
+## 📦 Getting Started
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/your-username/youtube-channel-tracker.git
