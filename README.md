@@ -1,8 +1,20 @@
-# React + Vite
+# 🎥 YouTube Channel Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**YouTube Channel Tracker** is a sleek web app that displays public statistics of any YouTube channel using just the **Channel ID**.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📛 Displays channel name, logo & join date  
+- 📊 Shows subscriber count and total views  
+- 📹 Fetches recent & most popular videos  
+- 💰 Estimates income (if monetized)
+
+## 🚀 Demo
+
+Live Preview: [https://you-tube-tracker-using-react.vercel.app/](https://you-tube-tracker-using-react.vercel.app/)
+
+## 🛠️ Tech Stack
+
+- **React.js**  
+- **Tailwind CSS**  
+- **YouTube Data API v3**
