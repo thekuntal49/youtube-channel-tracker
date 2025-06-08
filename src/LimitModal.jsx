@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { X, AlertCircle, Zap, Clock, RefreshCw } from "lucide-react";
 
-function LimitModal() {
-  const [showLimitModal, setShowLimitModal] = useState(true);
-
+function LimitModal({ showLimitModal, setShowLimitModal }) {
   return (
     <div className=" bg-slate-900 flex items-center justify-center">
       {/* Limit Reached Modal */}
@@ -65,7 +63,11 @@ function LimitModal() {
                 Upgrade to Pro for unlimited daily searches and advanced
                 analytics
               </p>
-              <a href="http://codesena.site/" target="_blank" className="w-full px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105">
+              <a
+                href="http://codesena.site/"
+                target="_blank"
+                className="w-full px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105"
+              >
                 Upgrade to Pro ✨
               </a>
             </div>
