@@ -172,7 +172,13 @@ function App() {
     const resolveChannelId = async (handle) => {
       const cleanedHandle = handle.replace("@", "").trim();
       const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${cleanedHandle}&type=channel&maxResults=1&key=${apiKey}`;
-      const response = await fetch(searchUrl);
+      let response;
+      try {
+        response = await fetch(searchUrl);
+      } catch (error) {
+        return null;
+      }
+
       const data = await response.json();
 
       if (data.items && data.items.length > 0) {
@@ -191,7 +197,7 @@ function App() {
       const channelId = await resolveChannelId(channelID);
 
       if (!channelId) {
-        alert("Channel not found. Please check the handle.");
+        setShowLimitModal(true);
         setIsLoading(false);
         return;
       }
