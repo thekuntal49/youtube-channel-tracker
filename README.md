@@ -11,7 +11,7 @@
 
 ## 🚀 Demo
 
-Live Preview: [https://you-tube-tracker-using-react.vercel.app/](https://you-tube-tracker-using-react.vercel.app/)
+Live Preview: [Link](https://youtube-channel-tracker.vercel.app/)
 
 ## 🛠️ Tech Stack
 
