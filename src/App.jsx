@@ -122,6 +122,7 @@ function App() {
       thumbnail: "https://img.youtube.com/vi/lqUhA430VAs/maxresdefault.jpg",
       videoId: "lqUhA430VAs",
     },
+    customUrl: "@codesena_dev",
   });
   const [incomeRange, setIncomeRange] = useState(`₹4,900 - ₹5,600`);
 
@@ -248,6 +249,7 @@ function App() {
         rawSubscriberCount: parseInt(
           channelData.items[0].statistics.subscriberCount
         ),
+        customUrl: channelData.items[0].snippet.customUrl || "",
       });
     } catch (error) {
       console.error("Error fetching channel data:", error);
@@ -259,7 +261,7 @@ function App() {
 
   const StatCard = ({ icon: Icon, title, value, subtitle, gradient }) => (
     <div
-      className={`relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br ${gradient} shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105`}
+      className={`relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br ${gradient} shadow-xl hover:shadow-2xl transition-all duration-300`}
     >
       <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full -translate-y-4 translate-x-4"></div>
       <div className="absolute bottom-0 left-0 w-16 h-16 bg-white/5 rounded-full translate-y-4 -translate-x-4"></div>
@@ -351,16 +353,23 @@ function App() {
         {/* Channel Header */}
         <div className="bg-slate-800/30 backdrop-blur-sm rounded-3xl p-8 mb-8 border border-slate-700/30">
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-            <div className="relative">
-              <img
-                src={channelData.logo}
-                alt="Channel Logo"
-                className="w-24 h-24 rounded-2xl object-cover border-2 border-slate-600/50 shadow-xl"
-              />
-              <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                <Star className="w-4 h-4 text-white" />
+            <a
+              href={`https://www.youtube.com/${channelData.customUrl}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="relative">
+                <img
+                  src={channelData.logo}
+                  alt="Channel Logo"
+                  className="w-24 h-24 rounded-2xl object-cover border-2 border-slate-600/50 shadow-xl"
+                />
+                <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                  <Star className="w-4 h-4 text-white" />
+                </div>
               </div>
-            </div>
+            </a>
+
             <div className="flex-1">
               <h2 className="text-3xl font-bold text-white mb-2">
                 {channelData.title}
@@ -523,7 +532,12 @@ function App() {
         </div>
       </div>
 
-      {showLimitModal && <LimitModal setShowLimitModal={setShowLimitModal} />}
+      {showLimitModal && (
+        <LimitModal
+          showLimitModal={showLimitModal}
+          setShowLimitModal={setShowLimitModal}
+        />
+      )}
     </div>
   );
 }
