@@ -18,9 +18,3 @@ Live Preview: [https://you-tube-tracker-using-react.vercel.app/](https://you-tub
 - **React.js**  
 - **Tailwind CSS**  
 - **YouTube Data API v3**
-
-## 📦 Getting Started
-
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/your-username/youtube-channel-tracker.git
