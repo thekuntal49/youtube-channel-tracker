@@ -484,9 +484,7 @@ function App() {
               <div className="text-3xl font-bold text-green-400 mb-1">
                 {incomeRange}
               </div>
-              <div className="text-green-300 text-sm">
-                Per month (estimated)
-              </div>
+              <div className="text-green-300 text-sm">Per year (estimated)</div>
             </div>
           </div>
         </div>
